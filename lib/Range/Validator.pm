@@ -4,9 +4,29 @@ use 5.006;
 use strict;
 use warnings;
 
+use Carp;
+
 our $VERSION = '0.01';
 
-sub validate {
+sub validate{
+	my $range;
+	my @range;
+	# assume we have a string if we receive only one argument
+	if ( @_ == 1){
+		$range = $_[0];
+	}
+	# otherwise we received a list
+	else{
+		...
+	}
+	# remove any space from string
+	$range =~ s/\s+//g;
+	# die if invalid characters
+	croak "invalid character passed in string [$range]!" 
+			if $range =~ /[^\s,.\d]/;
+	
+	@range = eval ($range);
+	return @range;
 }
 
 1;
