@@ -56,16 +56,15 @@ Version 0.01
     my @range = Range::Validator->validate('1,XXX,3'); # an invalid range  passed as a string
 	
 
-=head1 EXPORT
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
-
-=head1 SUBROUTINES/METHODS
+=head1 SUBROUTINES
 
 =head2 validate
 
-=cut
+This function accepts a string or a list (range) and returns an array.
+In the string form the accepted charachters are: positive integers, dots, commas and spaces. Every space will be removed.
+
+
 
 
 =head1 AUTHOR
