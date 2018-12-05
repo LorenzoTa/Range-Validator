@@ -24,6 +24,10 @@ sub validate{
 	# die if invalid characters
 	croak "invalid character passed in string [$range]!" 
 			if $range =~ /[^\s,.\d]/;
+	# not allowed a lone .
+	croak "invalid range [$range] (single .)!" if $range =~ /(?<!\.)\.(?!\.)/; 
+	# not allowed more than 2 .
+	croak "invalid range [$range] (more than 2 .)!" if $range =~ /\.{3}/;
 	
 	@range = eval ($range);
 	return @range;
