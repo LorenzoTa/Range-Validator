@@ -35,8 +35,12 @@ sub validate{
 			croak "$1 > $2 in range [$range]" if $1 > $2;
 		}
 	}
-	
+	# eval the range
 	@range = eval ($range);
+	# remove duplicate elements using a hash
+	my %single = map{ $_ => 1} @range;
+	# sort unique keys numerically
+	@range = sort{ $a <=> $b } keys %single;
 	return @range;
 }
 
