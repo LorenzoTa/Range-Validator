@@ -26,3 +26,7 @@ foreach my $newstring ( '1...3', '1,3...5','...', '1...', '...2' ){
 	dies_ok { Range::Validator::validate( $newstring ) }
 			"expected to die with three dots in range [$newstring]";
 }
+
+foreach my $reversed ('3..1,7..9','1..4,7..5','3..4, 7..5','0..2,27..5'){
+	dies_ok { Range::Validator::validate( $reversed ) } "expected to die with reverse range [$reversed]";
+}
