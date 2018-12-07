@@ -28,6 +28,13 @@ sub validate{
 	croak "invalid range [$range] (single .)!" if $range =~ /(?<!\.)\.(?!\.)/; 
 	# not allowed more than 2 .
 	croak "invalid range [$range] (more than 2 .)!" if $range =~ /\.{3}/;
+	# spot reverse ranges like 27..5
+	if ($range =~ /[^.]\.\.[^.]/){
+		foreach my $match ( $range=~/(\d+\.\.\d+)/g ){
+			$match=~/(\d+)\.\.(\d+)/;
+			croak "$1 > $2 in range [$range]" if $1 > $2;
+		}
+	}
 	
 	@range = eval ($range);
 	return @range;
