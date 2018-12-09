@@ -36,8 +36,7 @@ sub validate{
 	# otherwise we received a list
 	else{
 		@range = @_;
-	}
-	
+	}	
 	# remove duplicate elements using a hash
 	my %single = map{ $_ => 1} @range;
 	# sort unique keys numerically
@@ -80,6 +79,11 @@ Version 0.01
 This function accepts a string or a list (range) and returns an array.
 In the string form the accepted charachters are: positive integers, dots, commas and spaces. Every space will be removed.
 
+Every string with occurences of a lone dot or more than two dots will be rejected causing an exception in the calling program.
+
+Reverse ranges like in C<'3..1'> passed as string will also cause an exception.
+
+In both string and list form any duplicate element (overlapped range) will be silently removed. Any form of unordered list will be silently rerodered.
 
 
 
