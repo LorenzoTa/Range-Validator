@@ -14,29 +14,30 @@ sub validate{
 	# assume we have a string if we receive only one argument
 	if ( @_ == 1){
 		$range = $_[0];
+		# remove any space from string
+		$range =~ s/\s+//g;
+		# die if invalid characters
+		croak "invalid character passed in string [$range]!" 
+				if $range =~ /[^\s,.\d]/;
+		# not allowed a lone .
+		croak "invalid range [$range] (single .)!" if $range =~ /(?<!\.)\.(?!\.)/; 
+		# not allowed more than 2 .
+		croak "invalid range [$range] (more than 2 .)!" if $range =~ /\.{3}/;
+		# spot reverse ranges like 27..5
+		if ($range =~ /[^.]\.\.[^.]/){
+			foreach my $match ( $range=~/(\d+\.\.\d+)/g ){
+				$match=~/(\d+)\.\.(\d+)/;
+				croak "$1 > $2 in range [$range]" if $1 > $2;
+			}
+		}
+		# eval the range
+		@range = eval ($range);
 	}
 	# otherwise we received a list
 	else{
 		@range = @_;
 	}
-	# remove any space from string
-	$range =~ s/\s+//g;
-	# die if invalid characters
-	croak "invalid character passed in string [$range]!" 
-			if $range =~ /[^\s,.\d]/;
-	# not allowed a lone .
-	croak "invalid range [$range] (single .)!" if $range =~ /(?<!\.)\.(?!\.)/; 
-	# not allowed more than 2 .
-	croak "invalid range [$range] (more than 2 .)!" if $range =~ /\.{3}/;
-	# spot reverse ranges like 27..5
-	if ($range =~ /[^.]\.\.[^.]/){
-		foreach my $match ( $range=~/(\d+\.\.\d+)/g ){
-			$match=~/(\d+)\.\.(\d+)/;
-			croak "$1 > $2 in range [$range]" if $1 > $2;
-		}
-	}
-	# eval the range
-	@range = eval ($range);
+	
 	# remove duplicate elements using a hash
 	my %single = map{ $_ => 1} @range;
 	# sort unique keys numerically
