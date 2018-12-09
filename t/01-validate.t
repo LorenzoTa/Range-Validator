@@ -48,3 +48,25 @@ foreach my $range ( keys %test ){
 				"correct result for range [$range]"
 	);
 }
+
+note ("starting test of list form");
+
+my @test = (
+	# passed  expected
+	# correct ones
+	[ [(0..3)], [(0,1,2,3)] ],
+	[ [(0,1..3)], [(0,1,2,3)] ],
+	[ [(0..3,5)], [(0,1,2,3,5)] ],
+	# overlapped ones
+	[ [(0..3,2)], [(0,1,2,3)] ],
+	[ [(1,0..3)], [(0,1,2,3)] ],
+	[ [(0..3,1..2)], [(0,1,2,3)] ],
+
+
+);
+foreach my $list ( @test ){
+	my @res = Range::Validator::validate( @{$list->[0]} );
+	is_deeply( \@{$list->[1]},\@res,
+				"correct result for list: @{$list->[0]}"
+	);
+}
