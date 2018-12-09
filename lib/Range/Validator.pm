@@ -17,7 +17,7 @@ sub validate{
 	}
 	# otherwise we received a list
 	else{
-		...
+		@range = @_;
 	}
 	# remove any space from string
 	$range =~ s/\s+//g;
