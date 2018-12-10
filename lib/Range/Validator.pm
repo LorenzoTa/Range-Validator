@@ -7,6 +7,7 @@ use warnings;
 use Carp;
 
 our $VERSION = '0.01';
+our $WARNINGS = 0;
 
 sub validate{
 	my $range;
