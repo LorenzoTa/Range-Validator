@@ -15,8 +15,9 @@ WriteMakefile(
         'ExtUtils::MakeMaker' => '0',
     },
     BUILD_REQUIRES => {
-        'Test::More' => '0',
-		'Test::Exception' => '0',
+        'Test::More' 		=> '0',
+		'Test::Exception' 	=> '0',
+		'Capture::Tiny'   	=> '0',
     },
     PREREQ_PM => {
         'Carp'	=> '0',
