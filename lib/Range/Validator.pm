@@ -34,6 +34,9 @@ sub validate{
 		# eval the range
 		@range = eval ($range);
 	}
+	elsif ( $WARNINGS == 1 and @_ == 0 ){
+		carp "Empty list passed in! We assume all element will be processed.";
+	}
 	# otherwise we received a list
 	else{
 		@range = @_;
