@@ -90,6 +90,10 @@ Reverse ranges like in C<'3..1'> passed as string will also cause an exception.
 In both string and list form any duplicate element (overlapped range) will be silently removed. Any form of unordered list will be silently rerodered.
 
 
+=head1 ENABLE WARNINGS
+
+If the C<$Range::Validator::WARNINGS> is set to a true value then an empty list passed to C<validate> will provoke a warning from the caller perspective.
+
 
 =head1 AUTHOR
 
