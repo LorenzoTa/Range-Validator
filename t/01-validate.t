@@ -81,7 +81,7 @@ note ("test of warnings emitted");
 	
 	$Range::Validator::WARNINGS = 1;
 	
-	my ($stdout, $stderr, @result) = capture { Range::Validator::validate() };
+	($stdout, $stderr, @result) = capture { Range::Validator::validate() };
 	like( $stderr, qr/^Empty list passed in/, "right warning for empty list if \$Range::Validator::WARNINGS");	
 	
 }
